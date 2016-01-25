@@ -2,6 +2,6 @@
 
   public class SimpleTest {
     public static void main(String[] args) {
-      System.out.println("Jude is Cool!");
+      System.out.println("Jude is a pleb!");
     }
   }
