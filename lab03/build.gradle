@@ -2,6 +2,15 @@ apply plugin: 'java'
 
 version = "1.0"
 
+buildscript {
+  repositories {
+    flatDir dirs: '~/proguard5.2.1/lib'
+  }
+  dependencies {
+    classpath ':proguard'
+  }
+}
+
 repositories{
   mavenCentral()
 }
