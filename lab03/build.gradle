@@ -27,3 +27,10 @@ jar {
                 'Implementation-Version': version
   }
 }
+
+task (minify, dependsOn: 'jar', type: proguard.gradle.ProGuardTask) {
+   configuration 'proguard.cfg'
+
+   injars 'build/libs/gradle_test-1.0.jar'
+   outjars 'build/libs/gradle_test-1.0.min.jar'
+ }
