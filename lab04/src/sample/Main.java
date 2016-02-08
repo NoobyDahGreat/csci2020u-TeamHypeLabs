@@ -1,21 +1,13 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.*;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.image.*;
-import javafx.collections.*;
-import javafx.event.*;
-import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.control.cell.*;
+
 
 
 public class Main extends Application {
@@ -25,7 +17,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Lab 04 Solution");
 
         GridPane editArea = new GridPane();
