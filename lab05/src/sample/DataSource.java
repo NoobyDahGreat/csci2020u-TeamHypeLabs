@@ -1,7 +1,11 @@
-import javafx.collection.*;
+package sample;
+
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class DataSource {
-  puclic static ObservableList<StudentRecord> getAllMarks() {
+  public static ObservableList<StudentRecord> getAllMarks() {
     ObservableList<StudentRecord> marks = FXCollections.observableArrayList();
 
     // Student ID, Assignements, Midterm, Final exam
