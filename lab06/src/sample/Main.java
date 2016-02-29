@@ -53,32 +53,42 @@ public class Main extends Application {
         final static String bar3 = "3";
         final static String bar4 = "4";
         final static String bar5 = "5";
+        final static String bar6 = "6";
+        final static String bar7 = "7";
+        final static String bar8 = "8";
     @Override
     public void start(Stage stage) throws Exception{
-        stage.setTitle("Bar Chart Sample");
+        stage.setTitle("");
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
         final BarChart<String,Number> bc =
                 new BarChart<String,Number>(xAxis,yAxis);
-        bc.setTitle("Country Summary");
-        xAxis.setLabel("Country");
-        yAxis.setLabel("Value");
+        bc.setTitle("");
+        xAxis.setLabel("");
+        yAxis.setLabel("");
 
         XYChart.Series series1 = new XYChart.Series();
-        series1.setName("2003");
+        series1.setName("");
         series1.getData().add(new XYChart.Data(bar1, avgHousePricesByYear[0]));
         series1.getData().add(new XYChart.Data(bar2, avgHousePricesByYear[1]));
         series1.getData().add(new XYChart.Data(bar3, avgHousePricesByYear[2]));
         series1.getData().add(new XYChart.Data(bar4, avgHousePricesByYear[3]));
         series1.getData().add(new XYChart.Data(bar5, avgHousePricesByYear[4]));
+        series1.getData().add(new XYChart.Data(bar6, avgHousePricesByYear[5]));
+        series1.getData().add(new XYChart.Data(bar7, avgHousePricesByYear[6]));
+        series1.getData().add(new XYChart.Data(bar8, avgHousePricesByYear[7]));
+
 
         XYChart.Series series2 = new XYChart.Series();
-        series2.setName("2004");
-        series2.getData().add(new XYChart.Data(bar1, 57401.85));
-        series2.getData().add(new XYChart.Data(bar2, 41941.19));
-        series2.getData().add(new XYChart.Data(bar3, 45263.37));
-        series2.getData().add(new XYChart.Data(bar4, 117320.16));
-        series2.getData().add(new XYChart.Data(bar5, 14845.27));
+        series2.setName("");
+        series2.getData().add(new XYChart.Data(bar1, avgCommercialPricesByYear[0]));
+        series2.getData().add(new XYChart.Data(bar2, avgCommercialPricesByYear[1]));
+        series2.getData().add(new XYChart.Data(bar3, avgCommercialPricesByYear[2]));
+        series2.getData().add(new XYChart.Data(bar4, avgCommercialPricesByYear[3]));
+        series2.getData().add(new XYChart.Data(bar5, avgCommercialPricesByYear[4]));
+        series2.getData().add(new XYChart.Data(bar6, avgCommercialPricesByYear[5]));
+        series2.getData().add(new XYChart.Data(bar7, avgCommercialPricesByYear[6]));
+        series2.getData().add(new XYChart.Data(bar8, avgCommercialPricesByYear[7]));
 
 
         Scene scene  = new Scene(bc,800,600);
