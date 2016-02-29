@@ -31,6 +31,16 @@ public class Main extends Application {
             1335932.6,1472362.0,1583521.9,1613246.3
     };
 
+    private static String[] ageGroups = {
+            "18-25", "26-35", "36-45", "46-55", "56-65", "65+"
+    };
+    private static int[] purchasesByAgeGroup = {
+            648, 1021, 2453, 3173, 1868, 2247
+    };
+    private static Color[] pieColours = {
+            Color.AQUA, Color.GOLD, Color.DARKORANGE,
+            Color.DARKSALMON, Color.LAWNGREEN, Color.PLUM
+    };
 
     @FXML
     private Canvas canvas;
