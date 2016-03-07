@@ -24,10 +24,30 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
         try {
-            Scanner scanner = new Scanner(new File("/home/brad/Documents/csci2020u/lab07/weatherwarnings-2015.csv"));
+            Scanner scanner = new Scanner(new File("~/Programing/CSCI-2020U/csci2020u-TeamHypeLabs/lab07/weatherwarnings-2015.csv"));
             scanner.useDelimiter(",");
+
+            int flashFlood = 0,severeThunderstorm = 0 ,specialMarine= 0 ,tornado = 0 ;
+
             while (scanner.hasNext()) {
-                /////ADD CODE HERE
+
+                for (int i = 0; i < 5; i++) {
+                    scanner.next();
+                }
+
+                String type = scanner.next();
+                if (type.equalsIgnoreCase("FLASH FLOOD")) {
+                    flashFlood++;
+                } else if (type.equalsIgnoreCase("SEVERE THUNDERSTORM")) {
+                    severeThunderstorm++;
+                } else if (type.equalsIgnoreCase("SPECIAL MARINE")) {
+                    specialMarine++;
+                } else if (type.equalsIgnoreCase("TORNADO")) {
+                    tornado++;
+                }
+
+                scanner.nextLine();
+
             }
             scanner.close();
         }
