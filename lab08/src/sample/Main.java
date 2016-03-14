@@ -25,6 +25,7 @@ import java.net.URLClassLoader;
 import javafx.stage.Stage;
 
 import javax.rmi.CORBA.StubDelegate;
+import javax.swing.*;
 
 public class Main extends Application {
     private BorderPane layout;
@@ -38,6 +39,34 @@ public class Main extends Application {
         table = new TableView<>();
         table.setItems(DataSource.getAllMarks());
         table.setEditable(false);
+
+        Menu menu = new Menu("File");
+        MenuItem newItem = new MenuItem("New");
+        newItem.setAccelerator(KeyCombination.keyCombination("Ctrl+N"));
+        menu.getItems().add(newItem);
+        menu.getItems().add(new SeparatorMenuItem());
+
+        MenuItem openItem = new MenuItem("Open");
+        openItem.setAccelerator(KeyCombination.keyCombination("Ctrl+O"));
+        menu.getItems().add(openItem);
+
+        MenuItem saveItem = new MenuItem("Save");
+        saveItem.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
+        menu.getItems().add(saveItem);
+
+        MenuItem saveAsItem = new MenuItem("Save As");
+        saveAsItem.setAccelerator(KeyCombination.keyCombination("Ctrl+Shift+S"));
+        menu.getItems().add(saveAsItem);
+
+        MenuItem exitMenuItem = new MenuItem("Exit");
+        exitMenuItem.setAccelerator(KeyCombination.keyCombination("Ctrl+Q"));
+        exitMenuItem.setOnAction( e -> System.exit(0) );
+        menu.getItems().add(exitMenuItem);
+
+
+        MenuBar menuBar = new MenuBar();
+        menuBar.getMenus().add(menu);
+
 
         TableColumn<StudentRecord,Integer> sidColumn = null;
         sidColumn = new TableColumn<>("SID");
@@ -82,6 +111,7 @@ public class Main extends Application {
 
         layout = new BorderPane();
         layout.setCenter(table);
+        layout.setTop(menuBar);
 
         Scene scene = new Scene(layout, 900, 600);
         primaryStage.setScene(scene);
