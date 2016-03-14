@@ -1,11 +1,14 @@
 package sample;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
@@ -20,6 +23,7 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import javafx.stage.Stage;
@@ -48,11 +52,42 @@ public class Main extends Application {
 
         MenuItem openItem = new MenuItem("Open");
         openItem.setAccelerator(KeyCombination.keyCombination("Ctrl+O"));
+        openItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                try {
+                    FileChooser fileChooser = new FileChooser();
+                    fileChooser.setTitle("Open Resource File");
+                    fileChooser.getExtensionFilters().addAll(
+                            new FileChooser.ExtensionFilter("Csv Files", "*.csv"),
+                            new FileChooser.ExtensionFilter("All Files", "*.*"));
+                    File selectedFile = fileChooser.showOpenDialog(primaryStage);
+                    if (selectedFile != null) {
+                        DataSource.loadMarks(selectedFile);
+                    }
+                }
+                catch (IOException e){
+                    e.printStackTrace();
+                }
+
+            }
+        });
         menu.getItems().add(openItem);
+
 
         MenuItem saveItem = new MenuItem("Save");
         saveItem.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
         menu.getItems().add(saveItem);
+        saveItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    DataSource.saveMarks(new File("Stuff.csv"), DataSource.getAllMarks());
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+            }
+        });
 
         MenuItem saveAsItem = new MenuItem("Save As");
         saveAsItem.setAccelerator(KeyCombination.keyCombination("Ctrl+Shift+S"));
@@ -118,6 +153,11 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    public void chooseDir(Stage primaryStage){
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setInitialDirectory(new File("."));
+        File mainDirectory = directoryChooser.showDialog(primaryStage);
+    }
 
     public static void main(String[] args) {
         launch(args);
