@@ -3,8 +3,42 @@ package sample;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class DataSource {
+
+    public static ObservableList<StudentRecord> loadMarks (File fName) throws IOException {
+        Scanner fileIn = new Scanner(new FileReader(fName));
+        fileIn.useDelimiter(",");
+
+        ObservableList<StudentRecord> marks = FXCollections.observableArrayList();
+
+        while (fileIn.hasNext()) {
+            String SID = fileIn.next();
+            double midterm = fileIn.nextDouble();
+            double assignment = fileIn.nextDouble();
+            double exam = fileIn.nextDouble();
+
+            marks.add(new StudentRecord(SID, midterm, assignment, exam));
+        }
+
+
+        return marks;
+    }
+
+    public static void saveMarks (File fname, ObservableList<StudentRecord> records) throws IOException {
+        PrintWriter outFile = new PrintWriter(fname);
+
+        for (int i = 0; i < records.size(); i++) {
+            outFile.println (records.get(i).getStudentId() + ", " + records.get(i).getMidterm() + ", "
+                             + records.get(i).getAssignments() + ", " + records.get(i).getExam());
+        }
+    }
+
     public static ObservableList<StudentRecord> getAllMarks() {
         ObservableList<StudentRecord> marks = FXCollections.observableArrayList();
 
