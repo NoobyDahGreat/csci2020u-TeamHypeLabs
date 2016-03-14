@@ -1,5 +1,6 @@
 package sample;
 
+import com.sun.image.codec.jpeg.TruncatedFileException;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +27,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.Observable;
+
 import javafx.stage.Stage;
 
 import javax.rmi.CORBA.StubDelegate;
@@ -34,14 +37,19 @@ import javax.swing.*;
 public class Main extends Application {
     private BorderPane layout;
     private TableView<StudentRecord> table;
+    private Button add;
+    private GridPane summary;
+    private TextField SID, assignments, midterm, finalExam;
+
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        ObservableList<StudentRecord> marks = DataSource.getAllMarks();
         primaryStage.setTitle("Lab 05 Solutions");
 
 
         table = new TableView<>();
-        table.setItems(DataSource.getAllMarks());
+        table.setItems(marks);
         table.setEditable(false);
 
         Menu menu = new Menu("File");
@@ -102,6 +110,51 @@ public class Main extends Application {
         MenuBar menuBar = new MenuBar();
         menuBar.getMenus().add(menu);
 
+        summary = new GridPane();
+        summary.setPadding(new Insets(10, 10, 10, 10));
+        summary.setVgap(10);
+        summary.setHgap(10);
+
+        Label SIDLabel = new Label("SID:");
+        summary.add(SIDLabel ,0, 0);
+        SID = new TextField();
+        SID.setEditable(true);
+        SID.setText("100559945");
+        summary.add(SID, 1, 0);
+
+        Label assignmentsLabel = new Label("Assignments: ");
+        summary.add(assignmentsLabel, 2, 0);
+        assignments = new TextField();
+        assignments.setEditable(true);
+        assignments.setText("50");
+        summary.add(assignments, 3, 0);
+
+        Label midtermLabel = new Label("Midterm:");
+        summary.add(midtermLabel, 0, 1);
+        midterm = new TextField();
+        midterm.setEditable(true);
+        midterm.setText("50");
+        summary.add(midterm, 1, 1);
+
+        Label examLabel = new Label("Final Exam:");
+        summary.add(examLabel, 2, 1);
+        finalExam = new TextField();
+        finalExam.setEditable(true);
+        finalExam.setText("50");
+        summary.add(finalExam, 3, 1);
+
+        add = new Button("Add");
+        add.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                StudentRecord stu = new StudentRecord(SID.getText(), Double.parseDouble(midterm.getText()), Double.parseDouble(assignments.getText()), Double.parseDouble(finalExam.getText()));
+                marks.add(stu);
+            }
+        });
+        summary.add(add, 4, 1);
+
+
+
 
         TableColumn<StudentRecord,Integer> sidColumn = null;
         sidColumn = new TableColumn<>("SID");
@@ -147,6 +200,7 @@ public class Main extends Application {
         layout = new BorderPane();
         layout.setCenter(table);
         layout.setTop(menuBar);
+        layout.setBottom(summary);
 
         Scene scene = new Scene(layout, 900, 600);
         primaryStage.setScene(scene);
