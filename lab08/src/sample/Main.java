@@ -58,6 +58,13 @@ public class Main extends Application {
         newItem.setAccelerator(KeyCombination.keyCombination("Ctrl+N"));
         menu.getItems().add(newItem);
         menu.getItems().add(new SeparatorMenuItem());
+        marks.clear();
+        newItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                marks.clear();
+            }
+        });
 
         MenuItem openItem = new MenuItem("Open");
         openItem.setAccelerator(KeyCombination.keyCombination("Ctrl+O"));
@@ -139,28 +146,28 @@ public class Main extends Application {
         summary.add(SIDLabel ,0, 0);
         SID = new TextField();
         SID.setEditable(true);
-        SID.setText("100559945");
+        SID.setPromptText("100559945");
         summary.add(SID, 1, 0);
 
         Label assignmentsLabel = new Label("Assignments: ");
         summary.add(assignmentsLabel, 2, 0);
         assignments = new TextField();
         assignments.setEditable(true);
-        assignments.setText("50");
+        assignments.setPromptText("50");
         summary.add(assignments, 3, 0);
 
         Label midtermLabel = new Label("Midterm:");
         summary.add(midtermLabel, 0, 1);
         midterm = new TextField();
         midterm.setEditable(true);
-        midterm.setText("50");
+        midterm.setPromptText("50");
         summary.add(midterm, 1, 1);
 
         Label examLabel = new Label("Final Exam:");
         summary.add(examLabel, 2, 1);
         finalExam = new TextField();
         finalExam.setEditable(true);
-        finalExam.setText("50");
+        finalExam.setPromptText("50");
         summary.add(finalExam, 3, 1);
 
         add = new Button("Add");
