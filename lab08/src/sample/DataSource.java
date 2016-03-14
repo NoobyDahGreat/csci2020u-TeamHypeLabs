@@ -13,18 +13,24 @@ public class DataSource {
 
     public static ObservableList<StudentRecord> loadMarks (File fName) throws IOException {
         Scanner fileIn = new Scanner(new FileReader(fName));
-        fileIn.useDelimiter(",");
+        fileIn.useDelimiter("(,|\\n)");
 
         ObservableList<StudentRecord> marks = FXCollections.observableArrayList();
 
         while (fileIn.hasNext()) {
             String SID = fileIn.next();
-            double midterm = fileIn.nextDouble();
-            double assignment = fileIn.nextDouble();
-            double exam = fileIn.nextDouble();
+            System.out.println(SID);
+            Double midterm = fileIn.nextDouble();
+            System.out.println(midterm);
+            Double assignment = fileIn.nextDouble();
+            System.out.println(assignment);
+            Double exam = fileIn.nextDouble();
+            System.out.println(exam);
 
-            marks.add(new StudentRecord(SID, midterm, assignment, exam));
+           marks.add(new StudentRecord(SID, midterm, assignment, exam));
         }
+
+        fileIn.close();
 
 
         return marks;
@@ -32,11 +38,13 @@ public class DataSource {
 
     public static void saveMarks (File fname, ObservableList<StudentRecord> records) throws IOException {
         PrintWriter outFile = new PrintWriter(fname);
-
         for (int i = 0; i < records.size(); i++) {
-            outFile.println (records.get(i).getStudentId() + ", " + records.get(i).getMidterm() + ", "
-                             + records.get(i).getAssignments() + ", " + records.get(i).getExam());
+            outFile.print (records.get(i).getStudentId() + "," + records.get(i).getMidterm() + ","
+                             + records.get(i).getAssignments() + "," + records.get(i).getExam() + "\n");
         }
+
+
+        outFile.close();
     }
 
     public static ObservableList<StudentRecord> getAllMarks() {
