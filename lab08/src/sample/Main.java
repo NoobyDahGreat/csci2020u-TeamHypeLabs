@@ -40,12 +40,13 @@ public class Main extends Application {
     private Button add;
     private GridPane summary;
     private TextField SID, assignments, midterm, finalExam;
+    private File selectedFile;
 
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         ObservableList<StudentRecord> marks = DataSource.getAllMarks();
-        primaryStage.setTitle("Lab 05 Solutions");
+        primaryStage.setTitle("Lab 08");
 
 
         table = new TableView<>();
@@ -71,7 +72,7 @@ public class Main extends Application {
                             new FileChooser.ExtensionFilter("All Files", "*.*"));
                     File selectedFile = fileChooser.showOpenDialog(primaryStage);
                     if (selectedFile != null) {
-                        DataSource.loadMarks(selectedFile);
+                        marks.setAll(DataSource.loadMarks(selectedFile));
                     }
                 }
                 catch (IOException e){
@@ -82,6 +83,25 @@ public class Main extends Application {
         });
         menu.getItems().add(openItem);
 
+        MenuItem saveAsItem = new MenuItem("Save As");
+        saveAsItem.setAccelerator(KeyCombination.keyCombination("Ctrl+Shift+S"));
+        menu.getItems().add(saveAsItem);
+        saveAsItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    FileChooser fileChooser = new FileChooser();
+                    fileChooser.setTitle("Save File");
+                    selectedFile = fileChooser.showSaveDialog(primaryStage);
+                    if (selectedFile != null) {
+                        DataSource.saveMarks(selectedFile, marks);
+                    }
+                }
+                catch(IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         MenuItem saveItem = new MenuItem("Save");
         saveItem.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
@@ -90,16 +110,16 @@ public class Main extends Application {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    DataSource.saveMarks(new File("Stuff.csv"), DataSource.getAllMarks());
+                    if (selectedFile == null) {
+                       saveAsItem.fire();
+                    }
+                    DataSource.saveMarks(selectedFile, marks);
                 }catch(IOException e){
                     e.printStackTrace();
                 }
             }
         });
 
-        MenuItem saveAsItem = new MenuItem("Save As");
-        saveAsItem.setAccelerator(KeyCombination.keyCombination("Ctrl+Shift+S"));
-        menu.getItems().add(saveAsItem);
 
         MenuItem exitMenuItem = new MenuItem("Exit");
         exitMenuItem.setAccelerator(KeyCombination.keyCombination("Ctrl+Q"));
