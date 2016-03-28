@@ -27,8 +27,6 @@ public class Main extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("Server.fxml"));
         primaryStage.setTitle("SimpleBBS Server v1.0");
-        Scene scene = new Scene(layout, 900, 900);
-        primaryStage.setScene(scene);
 
 
         summary = new GridPane();
@@ -42,6 +40,7 @@ public class Main extends Application {
         
 
         exit = new Button();
+        exit.setText("Exit");
         exit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -54,7 +53,9 @@ public class Main extends Application {
         layout.setCenter(summary);
 
 
-
+        primaryStage.setTitle("SimpleBBS Server v1.0");
+        Scene scene = new Scene(layout, 300, 300);
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
