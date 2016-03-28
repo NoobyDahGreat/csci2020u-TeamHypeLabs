@@ -13,6 +13,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.net.InetAddress;
+
 public class Main extends Application {
     private GridPane summary;
     private TextField user, msg;
@@ -21,7 +23,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("SimpleBBS Client v1.0");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 500, 275));
 
         summary = new GridPane();
         summary.setPadding(new Insets(10, 10, 10, 10));
@@ -48,6 +50,12 @@ public class Main extends Application {
             @Override
             public void handle(ActionEvent event) {
                 String str = user.getText() + ": " + msg.getText();
+
+                try {
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 Client.sendRequest(str, "Test");
             }
         });

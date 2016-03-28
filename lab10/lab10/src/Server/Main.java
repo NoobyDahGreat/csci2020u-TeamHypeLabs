@@ -10,10 +10,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+    private BorderPane layout;
     private GridPane summary;
     private TextArea board;
     private Button exit;
@@ -21,9 +23,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        layout = new BorderPane();
+
+        Parent root = FXMLLoader.load(getClass().getResource("Server.fxml"));
         primaryStage.setTitle("SimpleBBS Server v1.0");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        Scene scene = new Scene(layout, 900, 900);
+        primaryStage.setScene(scene);
+
 
         summary = new GridPane();
         summary.setPadding(new Insets(10, 10, 10, 10));
@@ -31,7 +37,7 @@ public class Main extends Application {
         summary.setVgap(10);
 
         board = new TextArea();
-        board.setText();
+        board.setText(" ");
         summary.add(board, 0, 0);
         
 
@@ -43,6 +49,11 @@ public class Main extends Application {
             }
         });
         summary.add(exit, 0, 1);
+
+        layout = new BorderPane();
+        layout.setCenter(summary);
+
+
 
         primaryStage.show();
     }
